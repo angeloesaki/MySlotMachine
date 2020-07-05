@@ -16,6 +16,10 @@
       this.stop.textContent = "STOP";
       this.stop.classList.add("stop");
       this.stop.addEventListener("click", () => {
+        if (this.stop.classList.contains("inactive")) {
+          return;
+        }
+        this.stop.classList.add("inactive");
         clearTimeout(this.timeoutId);
 
         panelsLeft--;
@@ -43,6 +47,19 @@
         this.spin();
       }, 50);
     }
+
+    isUnmatched(p1, p2) {
+      // if (this.img.src !== p1.img.src && this.img.src !== p2.img.src) {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
+      return this.img.src !== p1.img.src && this.img.src !== p2.img.src;
+    }
+
+    unmatch() {
+      this.img.classList.add("unmatched");
+    }
   }
 
   function checkResult() {
@@ -65,6 +82,10 @@
   //SPINボタンを押したら、画像がくるくる入れ替わる機能
   const spin = document.getElementById("spin");
   spin.addEventListener("click", () => {
+    if (spin.classList.contains("inactive")) {
+      return;
+    }
+    spin.classList.add("inactive");
     panels.forEach((panel) => {
       panel.spin();
     });
